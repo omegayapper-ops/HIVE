@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HIVE — Your community, truly intelligent</title>
+<meta name="description" content="HIVE — campus services, news, chat and Lost &amp; Found in one place.">
+<meta name="theme-color" content="#DDEEFF">
+<meta name="application-name" content="HIVE">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="fullscreen" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HIVE">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="hive.css">
+<link rel="stylesheet" href="hive-ai.css">
+<link rel="stylesheet" href="hive-ui.css">
+<link rel="stylesheet" href="hive-ux.css">
+<link rel="stylesheet" href="hive-enhancements.css">
+<link rel="stylesheet" href="hive-loading.css">
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <linearGradient id="lfPin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5B21B6"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+  <symbol id="lfLogo" viewBox="0 0 200 240">
+    <path d="M100 56 C134 56 162 84 162 118 C162 152 130 188 100 232 C70 188 38 152 38 118 C38 84 66 56 100 56 Z" fill="url(#lfPin)"/>
+    <circle cx="100" cy="116" r="48" fill="#f4f8ff"/>
+    <rect x="78" y="96" width="44" height="50" rx="9" fill="#4C1D95"/>
+    <rect x="88" y="87" width="24" height="14" rx="6" fill="#4C1D95"/>
+    <rect x="88" y="118" width="24" height="20" rx="4" fill="#f4f8ff"/>
+    <rect x="96" y="126" width="8" height="4" rx="2" fill="#4C1D95"/>
+    <path d="M60 106 l2.4 5.6 5.6 2.4 -5.6 2.4 -2.4 5.6 -2.4 -5.6 -5.6 -2.4 5.6 -2.4 z" fill="#f59e0b"/>
+    <path d="M140 98 l2 4.6 4.6 2 -4.6 2 -2 4.6 -2 -4.6 -4.6 -2 4.6 -2 z" fill="#f59e0b"/>
+    <circle cx="141" cy="161" r="18" fill="none" stroke="#f59e0b" stroke-width="7.5"/>
+    <line x1="153.7" y1="173.7" x2="167" y2="187" stroke="#f59e0b" stroke-width="8.5" stroke-linecap="round"/>
+    <polygon points="100,10 178,42 100,74 22,42" fill="#32134E"/>
+    <polygon points="100,25 152,45 100,65 48,45" fill="#5B21B6"/>
+    <line x1="166" y1="46" x2="166" y2="86" stroke="#0b1f4d" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="166" cy="90" r="5" fill="#32134E"/>
+  </symbol>
+  <symbol id="icHome" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3z"/></symbol>
+  <symbol id="icItems" viewBox="0 0 24 24"><path fill="currentColor" d="M4 7h16l-1 13H5z"/><path fill="none" stroke="currentColor" stroke-width="1.7" d="M8 7V5a4 4 0 0 1 8 0v2"/></symbol>
+  <symbol id="icBell" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a6 6 0 0 0-6 6v4l-2 4h16l-2-4V8a6 6 0 0 0-6-6zm0 20a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22z"/></symbol>
+  <symbol id="icUser" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"/><path fill="currentColor" d="M4 21c1-4.5 5-7 8-7s7 2.5 8 7z"/></symbol>
+  <symbol id="icExpand" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm14 0h2v6h-6v-2h4v-4z"/></symbol>
+  <symbol id="icDash" viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></symbol>
+  <symbol id="icSearch" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
+  <symbol id="icPlus" viewBox="0 0 24 24"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
+  <symbol id="icCheck" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></symbol>
+</svg>
+
+<div class="phone" id="phone">
+  <div class="hl-screen" role="status" aria-label="Opening HIVE">
+    <div class="hl-bg" aria-hidden="true"></div>
+    <div class="hl-honey" aria-hidden="true"></div>
+    <div class="hl-softglow" aria-hidden="true"></div>
+    <i class="hl-particle hl-p1" aria-hidden="true"></i><i class="hl-particle hl-p2" aria-hidden="true"></i><i class="hl-particle hl-p3" aria-hidden="true"></i><i class="hl-particle hl-p4" aria-hidden="true"></i>
+    <div class="hl-content">
+      <div class="hl-zone" aria-hidden="true">
+        <div class="hl-halo"></div><div class="hl-halo"></div>
+        <img class="hl-logo" src="hive_mark.png" alt="" width="643" height="615">
+        <div class="hl-wordmark">HIVE</div>
+      </div>
+      <div class="hl-status">Your space is getting ready</div>
+      <div class="hl-line" aria-hidden="true"><i></i></div>
+      <div class="hl-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="hl-beam" aria-hidden="true"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="hive.js"></script>
+<script src="app.js"></script>
+<script src="hive2.js"></script>
+<script src="hive3.js"></script>
+<script src="hive-ai.js"></script>
+<script src="hive-field.js"></script>
+<script src="hive-ux.js"></script>
+<script src="hive-icons.js"></script>
+<script src="hive-enhancements.js"></script>
+<script src="hive-groups.js"></script>
+<script src="install.js" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

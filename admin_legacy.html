@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Panel — Lost &amp; Found</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root{
+  --bg:#0f172a; --card:#1e293b; --card2:#243149; --line:#334155;
+  --text:#e7ecf7; --muted:#94a3b8; --primary:#2563eb; --primary-d:#1740b8;
+  --found:#16a34a; --lost:#dc2626; --gold:#f59e0b; --purple:#7c3aed; --cyan:#0891b2;
+}
+*{box-sizing:border-box;}
+body{margin:0; min-height:100vh; font-family:-apple-system,'Segoe UI',Roboto,sans-serif;
+  background:#0f172a; color:var(--text);}
+.hidden{display:none !important;}
+.login-wrap{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;
+  background:radial-gradient(circle at 30% 0%,#13327a 0%,#0a1230 60%,#070a18 100%);}
+.login-card{width:100%; max-width:400px; background:var(--card); border-radius:18px; padding:30px 26px;
+  border:1px solid var(--line); box-shadow:0 30px 70px rgba(0,0,0,.5);}
+.login-card h1{text-align:center; margin:0 0 6px; font-size:22px; color:#fff;}
+.login-card .shield{text-align:center; font-size:40px; margin-bottom:6px;}
+.login-card p.sub{text-align:center; color:var(--muted); font-size:13px; margin:0 0 22px;}
+.field{margin-bottom:14px;}
+.field label{display:block; font-size:12px; font-weight:700; color:var(--muted); margin-bottom:6px;
+  text-transform:uppercase; letter-spacing:0.5px;}
+.field input{width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line);
+  background:#0f172a; color:#fff; font-size:14px; outline:none; font-family:inherit;}
+.field input:focus{border-color:var(--primary);}
+.btn{display:block; width:100%; padding:13px; border-radius:10px; border:none; font-weight:700;
+  font-size:14px; cursor:pointer; font-family:inherit;}
+.btn-primary{background:var(--primary); color:#fff;}
+.btn-primary:hover{background:var(--primary-d);}
+.btn:disabled{opacity:.6; cursor:not-allowed;}
+.err{color:#f87171; font-size:13px; text-align:center; margin-top:12px; min-height:18px;}
+.topbar{background:linear-gradient(135deg,#0f2942,#1e63c9); padding:16px 24px; display:flex;
+  align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+.topbar h1{margin:0; font-size:18px; color:#fff;}
+.topbar .badge{background:rgba(255,255,255,.15); padding:3px 10px; border-radius:20px;
+  font-size:11px; font-weight:700; color:#fff;}
+.topbar .tb-btn{background:rgba(255,255,255,.15); color:#fff; border:none; padding:8px 14px;
+  border-radius:8px; font-weight:700; cursor:pointer; font-size:13px; font-family:inherit;}
+.topbar .tb-btn:hover{background:rgba(255,255,255,.25);}
+.topbar .left{display:flex; align-items:center; gap:12px;}
+.topbar .right{display:flex; gap:8px;}
+.wrap{max-width:1300px; margin:0 auto; padding:24px 20px 60px;}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-bottom:24px;}
+.stat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px;}
+.stat .lbl{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; font-weight:700;}
+.stat .val{font-size:28px; font-weight:800; margin-top:6px; color:#fff;}
+.stat.blue .val{color:#60a5fa;}
+.stat.green .val{color:#4ade80;}
+.stat.red .val{color:#f87171;}
+.stat.gold .val{color:#fbbf24;}
+.stat.purple .val{color:#c4b5fd;}
+.stat.cyan .val{color:#67e8f9;}
+.section{background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:20px; margin-bottom:20px;}
+.section h2{margin:0 0 14px; font-size:15px; color:#fff; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.section h2 .count{background:var(--primary); color:#fff; padding:2px 9px; border-radius:20px; font-size:11px;}
+.section h2 .spacer{flex:1;}
+.ctrl{display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:14px 0; border-bottom:1px solid var(--line);}
+.ctrl:last-child{border-bottom:none; padding-bottom:0;}
+.ctrl:first-of-type{padding-top:0;}
+.ctrl .ct{font-size:14px; font-weight:700; color:#fff;}
+.ctrl .cd{font-size:12.5px; color:var(--muted); margin-top:3px; line-height:1.45;}
+.switch{position:relative; width:52px; height:28px; border-radius:14px; border:none;
+  background:#475569; cursor:pointer; flex-shrink:0; transition:background .2s; padding:0;}
+.switch::after{content:''; position:absolute; top:3px; left:3px; width:22px; height:22px;
+  border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 1px 3px rgba(0,0,0,.3);}
+.switch.on{background:var(--found);}
+.switch.on::after{transform:translateX(24px);}
+.switch:disabled{opacity:.5; cursor:not-allowed;}
+.toolbar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; align-items:center;}
+.search{flex:1; min-width:180px; padding:10px 14px; border-radius:10px; border:1px solid var(--line);
+  background:#0f172a; color:#fff; font-size:13px; outline:none; font-family:inherit;}
+.search:focus{border-color:var(--primary);}
+.pills{display:flex; gap:6px; flex-wrap:wrap;}
+.pill{padding:7px 14px; border-radius:20px; border:1px solid var(--line); background:transparent;
+  color:var(--muted); font-size:12px; font-weight:700; cursor:pointer; font-family:inherit;}
+.pill.active{background:var(--primary); border-color:var(--primary); color:#fff;}
+.pill:not(.active):hover{color:#fff; border-color:var(--primary);}
+.mini-btn{background:linear-gradient(135deg,#7c3aed,#6d28d9); color:#fff; border:none;
+  padding:8px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit;}
+.mini-btn:disabled{opacity:.5; cursor:not-allowed;}
+.table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+.icell{display:flex; align-items:center; gap:10px;}
+.ithumb{width:44px; height:44px; border-radius:8px; object-fit:cover; border:1px solid var(--line); background:var(--card2); display:block; flex-shrink:0;}
+.ithumb.none{display:flex; align-items:center; justify-content:center; font-size:18px;}
+table{width:100%; border-collapse:collapse; font-size:13px; min-width:740px;}
+th{text-align:left; color:var(--muted); font-weight:700; padding:10px 8px;
+  border-bottom:1px solid var(--line); font-size:11px; text-transform:uppercase;
+  letter-spacing:.4px; white-space:nowrap;}
+td{padding:12px 8px; border-bottom:1px solid var(--line); color:#cbd5e1; vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(37,99,235,.06);}
+.badge-status{display:inline-block; padding:3px 10px; border-radius:20px;
+  font-size:11px; font-weight:700; white-space:nowrap;}
+.badge-status.active{background:rgba(22,163,74,.15); color:#4ade80;}
+.badge-status.blocked{background:rgba(220,38,38,.15); color:#f87171;}
+.badge-status.admin{background:rgba(245,158,11,.15); color:#fbbf24;}
+.badge-status.pending{background:rgba(139,92,246,.18); color:#c4b5fd;}
+.badge-status.noaccess{background:rgba(100,116,139,.25); color:#cbd5e1;}
+.actions{display:flex; gap:6px; flex-wrap:wrap;}
+.action-btn{border:none; padding:6px 12px; border-radius:8px; font-weight:700; font-size:11.5px;
+  cursor:pointer; font-family:inherit; transition:all .15s; color:#fff; white-space:nowrap;}
+.action-btn.block{background:linear-gradient(135deg,#dc2626,#b91c1c);}
+.action-btn.block:hover{background:linear-gradient(135deg,#b91c1c,#991b1b); transform:translateY(-1px);}
+.action-btn.unblock,.action-btn.approve{background:linear-gradient(135deg,#16a34a,#15803d);}
+.action-btn.unblock:hover,.action-btn.approve:hover{background:linear-gradient(135deg,#15803d,#166534); transform:translateY(-1px);}
+.action-btn.revoke{background:linear-gradient(135deg,#7c3aed,#6d28d9);}
+.action-btn.revoke:hover{background:linear-gradient(135deg,#6d28d9,#5b21b6); transform:translateY(-1px);}
+.action-btn.noaccess{background:linear-gradient(135deg,#64748b,#475569);}
+.action-btn.noaccess:hover{background:linear-gradient(135deg,#475569,#334155); transform:translateY(-1px);}
+.action-btn.delete{background:linear-gradient(135deg,#64748b,#475569);}
+.action-btn.delete:hover{background:linear-gradient(135deg,#475569,#334155); transform:translateY(-1px);}
+.action-btn:disabled{opacity:.55; cursor:not-allowed; transform:none;}
+.cat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px;}
+.cat-box{background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:14px 16px;}
+.cat-box .cb-name{font-size:12px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.4px;}
+.cat-box .cb-val{font-size:22px; font-weight:800; margin-top:4px; color:#fff;}
+.notice{background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.4); color:#fcd34d;
+  padding:14px 16px; border-radius:12px; font-size:13px; line-height:1.55; margin-bottom:20px;}
+.notice b{color:#fff;}
+.empty{color:var(--muted); font-size:13px; text-align:center; padding:30px 0;}
+.loading{color:var(--muted); text-align:center; padding:40px;}
+.spinner{display:inline-block; width:24px; height:24px; border:3px solid var(--line);
+  border-top-color:var(--primary); border-radius:50%; animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ---------- PASSWORD INPUT + EYE TOGGLE (admin panel) ---------- */
+.password-wrap{position:relative; display:flex; align-items:center; width:100%;}
+.password-wrap input{
+  width:100%;
+  padding:12px 46px 12px 14px;   /* right padding makes room for eye */
+  border-radius:10px; border:1px solid var(--line);
+  background:#0f172a; color:#fff; font-size:14px; outline:none; font-family:inherit;
+}
+.password-wrap input:focus{border-color:var(--primary);}
+.password-eye{
+  position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  width:34px; height:34px; padding:0; border:0; background:transparent;
+  color:var(--muted); cursor:pointer; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  transition:color .2s, background .2s; z-index:2;
+}
+.password-eye:hover{color:#fff; background:rgba(255,255,255,.10);}
+.password-eye:focus-visible{outline:2px solid var(--primary); outline-offset:2px;}
+.password-eye svg{width:20px; height:20px; display:block; pointer-events:none;}
+.password-eye .eye-closed{display:none;}
+.password-eye.on .eye-open{display:none;}
+.password-eye.on .eye-closed{display:block;}
+
+/* Hide native browser reveal buttons so only our eye shows */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear{display:none;}
+input[type="password"]::-webkit-credentials-auto-fill-button{
+  visibility:hidden; display:none !important; pointer-events:none;
+}
+/* ---------- END PASSWORD INPUT ---------- */
+
+.toast{position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#0f172a;
+  color:#fff; padding:12px 20px; border-radius:30px; font-size:13px; border:1px solid var(--line);
+  z-index:999; animation:toastIn .25s ease-out; max-width:90vw; text-align:center;}
+@keyframes toastIn{from{opacity:0; transform:translate(-50%,12px);}to{opacity:1; transform:translate(-50%,0);}}
+@media(max-width:600px){
+  .topbar{padding:12px 16px;}
+  .topbar h1{font-size:15px;}
+  .wrap{padding:16px 12px 60px;}
+  .section{padding:16px 12px;}
+  table{font-size:12px;}
+  th,td{padding:8px 4px;}
+  .action-btn{padding:5px 9px; font-size:11px;}
+}
+</style>
+</head>
+<body>
+
+<div class="login-wrap" id="loginScreen">
+  <div class="login-card">
+    <div class="shield">🛡️</div>
+    <h1>Admin Panel</h1>
+    <p class="sub">Lost &amp; Found — College App</p>
+    <div class="field">
+      <label>Admin Password</label>
+      <div class="password-wrap">
+        <input type="password" id="adminPass" placeholder="Enter admin password"
+               autocomplete="current-password"
+               onkeydown="if(event.key==='Enter') unlockAdmin()">
+        <button type="button" class="password-eye"
+                onclick="toggleAdminPassword(this)"
+                aria-label="Show password">
+          <svg class="eye-open" viewBox="0 0 24 24" width="20" height="20" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg class="eye-closed" viewBox="0 0 24 24" width="20" height="20" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.94 17.94A10.9 10.9 0 0 1 12 19c-7 0-11-7-11-7a19.8 19.8 0 0 1 5.06-5.94M9.9 4.24A10.9 10.9 0 0 1 12 4c7 0 11 7 11 7a19.8 19.8 0 0 1-3.17 4.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="unlockBtn" onclick="unlockAdmin()">Unlock Admin Panel</button>
+    <div class="err" id="loginErr"></div>
+    <p style="text-align:center; color:var(--muted); font-size:12px; margin-top:20px;">
+      Students: use the main app →<br>
+      <a href="./" style="color:var(--primary); text-decoration:none; font-weight:700;">Open Student App</a>
+    </p>
+    <div class="admin-route-links"><a href="admin.html">Admin hub</a><a href="admin-education.html">Education</a><a href="admin-medical.html">Medical</a><a href="ops.html">Legacy Ops</a></div>
+  </div>
+</div>
+
+<div class="hidden" id="dashScreen">
+  <div class="topbar">
+    <div class="left">
+      <h1>🛡️ Admin Panel</h1>
+      <span class="badge">Admin Mode</span>
+    </div>
+    <div class="right admin-nav">
+      <a class="tb-btn" href="admin.html">Admin hub</a>
+      <a class="tb-btn" href="admin-education.html">Education</a>
+      <a class="tb-btn" href="admin-medical.html">Medical</a>
+      <a class="tb-btn" href="ops.html">Legacy Ops</a>
+      <button class="tb-btn" onclick="refreshAll()">↻ Refresh</button>
+      <button class="tb-btn" onclick="lockAdmin()">Lock Panel</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="notice hidden" id="setupNotice">
+      <b>Admin backend setup is required.</b> The admin functions were not found in your Supabase project.
+      Open <b>Supabase → SQL Editor</b>, run the included <b>setup.sql</b> once, then press <b>Refresh</b>. This enables blocking, approval, access control and signup controls.
+    </div>
+
+    <div class="section">
+      <h2>🔐 Registration Controls</h2>
+      <div class="ctrl">
+        <div>
+          <div class="ct">Allow new sign-ups</div>
+          <div class="cd" id="signupsDesc">Loading…</div>
+        </div>
+        <button class="switch" id="swSignups" role="switch" aria-checked="false"
+                disabled onclick="toggleSetting('signups')"></button>
+      </div>
+      <div class="ctrl">
+        <div>
+          <div class="ct">Require admin approval for new users</div>
+          <div class="cd" id="approvalDesc">Loading…</div>
+        </div>
+        <button class="switch" id="swApproval" role="switch" aria-checked="false"
+                disabled onclick="toggleSetting('approval')"></button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat blue"><div class="lbl">Total Users</div><div class="val" id="statUsers">—</div></div>
+      <div class="stat green"><div class="lbl">Active</div><div class="val" id="statActive">—</div></div>
+      <div class="stat purple"><div class="lbl">Pending</div><div class="val" id="statPending">—</div></div>
+      <div class="stat red"><div class="lbl">Blocked</div><div class="val" id="statBlocked">—</div></div>
+      <div class="stat cyan"><div class="lbl">No Access</div><div class="val" id="statNoAccess">—</div></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat blue"><div class="lbl">Total Items</div><div class="val" id="statItems">—</div></div>
+      <div class="stat gold"><div class="lbl">Open Items</div><div class="val" id="statOpen">—</div></div>
+      <div class="stat green"><div class="lbl">Returned</div><div class="val" id="statReturned">—</div></div>
+      <div class="stat red"><div class="lbl">Lost Posts</div><div class="val" id="statLost">—</div></div>
+      <div class="stat green"><div class="lbl">Found Posts</div><div class="val" id="statFound">—</div></div>
+    </div>
+
+    <div class="section">
+      <h2>📊 Items by Category</h2>
+      <div class="cat-grid" id="catGrid">
+        <div class="loading"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>👥 Users <span class="count" id="userCount">0</span></h2>
+      <div class="toolbar">
+        <input class="search" id="userSearch" placeholder="Search name or email…" oninput="renderUsers()">
+        <div class="pills" id="userPills"></div>
+        <button class="mini-btn hidden" id="approveAllBtn" onclick="approveAll()">✅ Approve all pending</button>
+      </div>
+      <div id="usersArea"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+
+    <div class="section">
+      <h2>📦 Recent Items <span class="count" id="itemCount">0</span></h2>
+      <div class="toolbar">
+        <input class="search" id="itemSearch" placeholder="Search items…" oninput="renderItems()">
+        <div class="pills" id="itemPills"></div>
+      </div>
+      <div id="itemsArea"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+var SUPABASE_URL = 'https://uhesiuyjbiwpwlulmaqw.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_T7oa-3syn79PiHlf63EKVg_KhNz5lMg';
+var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+var ADMIN_PW = '';
+var allUsers = [];
+var allItems = [];
+var userFilter = 'all';
+var itemFilter = 'all';
+var settings = { signups_open: true, require_approval: false };
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function fmtDate(v){
+  if(!v) return '—';
+  try { return new Date(v).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'}); }
+  catch(e){ return v; }
+}
+function toast(msg){
+  var o = document.querySelector('.toast'); if(o) o.remove();
+  var d = document.createElement('div');
+  d.className = 'toast'; d.textContent = msg;
+  document.body.appendChild(d);
+  setTimeout(function(){ if(d.parentNode) d.remove(); }, 2800);
+}
+function showOnly(id){
+  ['loginScreen','dashScreen'].forEach(function(s){
+    document.getElementById(s).classList.add('hidden');
+  });
+  document.getElementById(id).classList.remove('hidden');
+}
+
+async function admin(fn, args){
+  args = args || {};
+  args.p_password = ADMIN_PW;
+  var res = await sb.rpc(fn, args);
+  if(res.error){
+    var m = res.error.message || '';
+    if(m.indexOf('INVALID_ADMIN_PASSWORD') >= 0){
+      toast('❌ Session invalid — please unlock again');
+      lockAdmin();
+    } else if(res.error.code === 'PGRST202' || /could not find the function/i.test(m)){
+      document.getElementById('setupNotice').classList.remove('hidden');
+    }
+  }
+  return res;
+}
+
+function toggleAdminPassword(btn){
+  var el = document.getElementById('adminPass');
+  if(!el) return;
+  var show = el.type === 'password';
+  el.type = show ? 'text' : 'password';
+  btn.classList.toggle('on', show);
+  btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+}
+
+async function unlockAdmin(){
+  var pw  = document.getElementById('adminPass').value || '';
+  var err = document.getElementById('loginErr');
+  var btn = document.getElementById('unlockBtn');
+  err.textContent = '';
+
+  if(!pw){ err.textContent = 'Please enter the admin password'; return; }
+
+  btn.disabled = true; btn.textContent = 'Checking…';
+  var sessionRes = await sb.auth.getSession();
+  var session = sessionRes && sessionRes.data ? sessionRes.data.session : null;
+  if(!session || !session.user){
+    btn.disabled = false; btn.textContent = 'Unlock Admin Panel';
+    err.textContent = '🔒 Sign in to your authorized admin profile in the main app first.';
+    return;
+  }
+  var profileRes = await sb.from('profiles').select('id,email,is_admin').eq('id', session.user.id).maybeSingle();
+  if(profileRes.error || !profileRes.data || profileRes.data.is_admin !== true){
+    btn.disabled = false; btn.textContent = 'Unlock Admin Panel';
+    err.textContent = '🚫 This profile is not authorized for the Admin Panel.';
+    return;
+  }
+  var res = await sb.rpc('admin_check', { p_password: pw });
+  btn.disabled = false; btn.textContent = 'Unlock Admin Panel';
+
+  if(res.error){
+    var m = res.error.message || '';
+    if(res.error.code === 'PGRST202' || /could not find the function/i.test(m)){
+      err.textContent = '⚠️ Setup not done yet. Run setup.sql in Supabase SQL Editor first.';
+    } else {
+      err.textContent = '⚠️ Could not reach server: ' + m;
+    }
+    return;
+  }
+  if(res.data !== true){
+    err.textContent = '❌ Incorrect password. Access denied.';
+    document.getElementById('adminPass').value = '';
+    return;
+  }
+
+  ADMIN_PW = pw;
+  showOnly('dashScreen');
+  refreshAll();
+}
+
+function lockAdmin(){
+  ADMIN_PW = '';
+  allUsers = []; allItems = [];
+  document.getElementById('adminPass').value = '';
+  document.getElementById('loginErr').textContent = '';
+  showOnly('loginScreen');
+}
+
+function refreshAll(){
+  document.getElementById('setupNotice').classList.add('hidden');
+  loadSettings();
+  loadUsers();
+  loadItems();
+}
+
+async function loadSettings(){
+  var res = await sb.from('app_settings').select('*').eq('id', 1).maybeSingle();
+  if(res.error || !res.data){
+    document.getElementById('signupsDesc').textContent = 'Not available — run setup.sql first.';
+    document.getElementById('approvalDesc').textContent = 'Not available — run setup.sql first.';
+    return;
+  }
+  settings = {
+    signups_open: res.data.signups_open !== false,
+    require_approval: !!res.data.require_approval
+  };
+  paintSettings();
+}
+
+function paintSettings(){
+  var s1 = document.getElementById('swSignups');
+  var s2 = document.getElementById('swApproval');
+  s1.disabled = false; s2.disabled = false;
+  s1.classList.toggle('on', settings.signups_open);
+  s2.classList.toggle('on', settings.require_approval);
+  s1.setAttribute('aria-checked', settings.signups_open);
+  s2.setAttribute('aria-checked', settings.require_approval);
+  document.getElementById('signupsDesc').textContent = settings.signups_open
+    ? 'ON — anyone can create a new account in the app.'
+    : 'OFF — the Sign Up button is closed. Existing users can still log in.';
+  document.getElementById('approvalDesc').textContent = settings.require_approval
+    ? 'ON — new users must be approved by you before they can log in.'
+    : 'OFF — new users can log in immediately after signing up.';
+}
+
+async function toggleSetting(which){
+  var next = {
+    signups_open: which === 'signups' ? !settings.signups_open : settings.signups_open,
+    require_approval: which === 'approval' ? !settings.require_approval : settings.require_approval
+  };
+  var s1 = document.getElementById('swSignups'), s2 = document.getElementById('swApproval');
+  s1.disabled = true; s2.disabled = true;
+
+  var res = await admin('admin_set_settings', {
+    p_signups_open: next.signups_open,
+    p_require_approval: next.require_approval
+  });
+  if(res.error){
+    toast('❌ Failed to save: ' + res.error.message);
+  } else {
+    settings = next;
+    toast(which === 'signups'
+      ? (next.signups_open ? '✅ New sign-ups are now OPEN' : '🔒 New sign-ups are now CLOSED')
+      : (next.require_approval ? '⏳ New users now need your approval' : '✅ New users are auto-approved'));
+  }
+  paintSettings();
+}
+
+function userState(u){
+  if(u.is_blocked) return 'blocked';
+  if(u.is_approved === false) return 'pending';
+  if(u.access_granted === false) return 'noaccess';
+  return 'active';
+}
+
+async function loadUsers(){
+  var area = document.getElementById('usersArea');
+  area.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+  var res = await admin('admin_list_users');
+  if(res.error){
+    area.innerHTML = '<div class="empty">Failed to load users: ' + esc(res.error.message) + '</div>';
+    return;
+  }
+  allUsers = res.data || [];
+
+  var active=0, pending=0, blocked=0, noaccess=0;
+  allUsers.forEach(function(u){
+    var st = userState(u);
+    if(st === 'active') active++;
+    else if(st === 'pending') pending++;
+    else if(st === 'blocked') blocked++;
+    else if(st === 'noaccess') noaccess++;
+  });
+  document.getElementById('userCount').textContent   = allUsers.length;
+  document.getElementById('statUsers').textContent   = allUsers.length;
+  document.getElementById('statActive').textContent  = active;
+  document.getElementById('statPending').textContent = pending;
+  document.getElementById('statBlocked').textContent = blocked;
+  document.getElementById('statNoAccess').textContent= noaccess;
+
+  document.getElementById('approveAllBtn').classList.toggle('hidden', pending === 0);
+  renderUsers();
+}
+
+function setUserFilter(f){ userFilter = f; renderUsers(); }
+
+function renderUsers(){
+  var area = document.getElementById('usersArea');
+  var q = (document.getElementById('userSearch').value || '').toLowerCase().trim();
+
+  var counts = { all: allUsers.length, active:0, pending:0, blocked:0, noaccess:0 };
+  allUsers.forEach(function(u){ counts[userState(u)]++; });
+
+  var pills = [
+    ['all','All'], ['active','Active'], ['pending','Pending'],
+    ['blocked','Blocked'], ['noaccess','No Access']
+  ];
+  document.getElementById('userPills').innerHTML = pills.map(function(p){
+    return '<button class="pill' + (userFilter === p[0] ? ' active' : '') +
+      '" onclick="setUserFilter(\'' + p[0] + '\')">' + p[1] + ' (' + counts[p[0]] + ')</button>';
+  }).join('');
+
+  var list = allUsers.filter(function(u){
+    if(userFilter !== 'all' && userState(u) !== userFilter) return false;
+    if(!q) return true;
+    return (u.name||'').toLowerCase().indexOf(q) >= 0 ||
+           (u.email||'').toLowerCase().indexOf(q) >= 0;
+  });
+
+  if(!list.length){
+    area.innerHTML = '<div class="empty">' +
+      (allUsers.length ? 'No users match.' : 'No users yet.') + '</div>';
+    return;
+  }
+
+  var html = '<div class="table-scroll"><table><thead><tr>' +
+    '<th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Status</th><th>Actions</th>' +
+    '</tr></thead><tbody>';
+
+  list.forEach(function(u){
+    var st = userState(u);
+    var statusBadge =
+      st === 'blocked'  ? '<span class="badge-status blocked">🚫 Blocked</span>' :
+      st === 'pending'  ? '<span class="badge-status pending">⏳ Pending</span>' :
+      st === 'noaccess' ? '<span class="badge-status noaccess">🔒 No Access</span>' :
+                          '<span class="badge-status active">✅ Active</span>';
+
+    var roleBadge = u.is_admin
+      ? '<span class="badge-status admin">Admin</span>'
+      : esc(u.role || 'student');
+
+    var actions;
+    if(u.is_admin){
+      actions = '<span style="color:var(--muted);font-size:12px;">—</span>';
+    } else {
+      actions = '<div class="actions">';
+      if(st === 'pending'){
+        actions += '<button class="action-btn approve" data-act="approve" data-id="' + esc(u.id) + '">✅ Approve</button>';
+      } else if(st === 'active' && settings.require_approval){
+        actions += '<button class="action-btn revoke" data-act="revoke" data-id="' + esc(u.id) + '">↩ Revoke</button>';
+      }
+      if(st === 'blocked'){
+        actions += '<button class="action-btn unblock" data-act="unblock" data-id="' + esc(u.id) + '">🔓 Unblock</button>';
+      } else {
+        actions += '<button class="action-btn block" data-act="block" data-id="' + esc(u.id) + '">🚫 Block</button>';
+      }
+      if(u.access_granted === false){
+        actions += '<button class="action-btn approve" data-act="grant" data-id="' + esc(u.id) + '">🔓 Grant Access</button>';
+      } else {
+        actions += '<button class="action-btn noaccess" data-act="deny" data-id="' + esc(u.id) + '">🔒 Deny Access</button>';
+      }
+      actions += '</div>';
+    }
+
+    html += '<tr>' +
+      '<td><b>' + esc(u.name || '—') + '</b></td>' +
+      '<td>' + esc(u.email || '—') + '</td>' +
+      '<td>' + roleBadge + '</td>' +
+      '<td>' + fmtDate(u.created_at) + '</td>' +
+      '<td>' + statusBadge + '</td>' +
+      '<td>' + actions + '</td>' +
+    '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  area.innerHTML = html;
+}
+
+document.getElementById('usersArea').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-act]');
+  if(!b) return;
+  userAction(b.getAttribute('data-act'), b.getAttribute('data-id'), b);
+});
+
+async function userAction(act, id, btn){
+  var u = allUsers.filter(function(x){ return String(x.id) === String(id); })[0];
+  if(!u) return;
+  var who = u.name || u.email || 'this user';
+
+  var cfg = {
+    block:   { msg:'🚫 BLOCK USER\\n\\nBlock "' + who + '"?\\n\\nThey will be logged out and cannot log in until you unblock them.',
+               fn:'admin_set_blocked',  args:{ p_user:id, p_blocked:true },  ok:'🚫 User blocked' },
+    unblock: { msg:'🔓 UNBLOCK USER\\n\\nUnblock "' + who + '"?\\n\\nThey will be able to log in again.',
+               fn:'admin_set_blocked',  args:{ p_user:id, p_blocked:false }, ok:'✅ User unblocked' },
+    approve: { msg:'✅ APPROVE USER\\n\\nApprove "' + who + '"?\\n\\nThey will be able to log in.',
+               fn:'admin_set_approved', args:{ p_user:id, p_approved:true },  ok:'✅ User approved' },
+    revoke:  { msg:'↩ REVOKE APPROVAL\\n\\nMove "' + who + '" back to pending?',
+               fn:'admin_set_approved', args:{ p_user:id, p_approved:false }, ok:'⏳ Approval revoked' },
+    grant:   { msg:'🔓 GRANT ACCESS\\n\\nGive "' + who + '" access to use the app?',
+               fn:'admin_set_access',   args:{ p_user:id, p_granted:true },  ok:'✅ Access granted' },
+    deny:    { msg:'🔒 DENY ACCESS\\n\\nRevoke app access for "' + who + '"?\\n\\nThey will be logged out and shown a "No Access" message.',
+               fn:'admin_set_access',   args:{ p_user:id, p_granted:false }, ok:'🔒 Access denied' }
+  }[act];
+  if(!cfg || !confirm(cfg.msg)) return;
+
+  btn.disabled = true;
+  var res = await admin(cfg.fn, cfg.args);
+  if(res.error){ toast('❌ Failed: ' + res.error.message); btn.disabled = false; return; }
+  toast(cfg.ok);
+  loadUsers();
+}
+
+async function approveAll(){
+  var n = allUsers.filter(function(u){ return userState(u) === 'pending'; }).length;
+  if(!n || !confirm('✅ Approve all ' + n + ' pending user(s)?')) return;
+  var btn = document.getElementById('approveAllBtn');
+  btn.disabled = true;
+  var res = await admin('admin_approve_all');
+  btn.disabled = false;
+  if(res.error){ toast('❌ Failed: ' + res.error.message); return; }
+  toast('✅ Approved ' + (res.data || n) + ' user(s)');
+  loadUsers();
+}
+
+async function loadItems(){
+  var area = document.getElementById('itemsArea');
+  area.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+  var res = await sb.from('items').select('*').order('created_at', {ascending:false}).limit(200);
+  if(res.error){
+    area.innerHTML = '<div class="empty">Failed to load items: ' + esc(res.error.message) + '</div>';
+    return;
+  }
+  allItems = res.data || [];
+
+  var open = 0, returned = 0, lost = 0, found = 0;
+  allItems.forEach(function(i){
+    if(i.status === 'returned') returned++; else open++;
+    if(i.type === 'lost') lost++; else if(i.type === 'found') found++;
+  });
+  document.getElementById('itemCount').textContent    = allItems.length;
+  document.getElementById('statItems').textContent    = allItems.length;
+  document.getElementById('statOpen').textContent     = open;
+  document.getElementById('statReturned').textContent = returned;
+  document.getElementById('statLost').textContent     = lost;
+  document.getElementById('statFound').textContent    = found;
+
+  var byCat = {};
+  allItems.forEach(function(i){
+    var c = i.category || 'Others';
+    byCat[c] = (byCat[c] || 0) + 1;
+  });
+  var catKeys = Object.keys(byCat).sort(function(a,b){ return byCat[b]-byCat[a]; });
+  if(catKeys.length){
+    document.getElementById('catGrid').innerHTML = catKeys.map(function(k){
+      return '<div class="cat-box"><div class="cb-name">' + esc(k) + '</div>' +
+             '<div class="cb-val">' + byCat[k] + '</div></div>';
+    }).join('');
+  } else {
+    document.getElementById('catGrid').innerHTML = '<div class="empty" style="grid-column:1/-1">No items yet.</div>';
+  }
+
+  renderItems();
+}
+
+function setItemFilter(f){ itemFilter = f; renderItems(); }
+
+function renderItems(){
+  var area = document.getElementById('itemsArea');
+  var q = (document.getElementById('itemSearch').value || '').toLowerCase().trim();
+
+  var counts = { all: allItems.length, lost:0, found:0, open:0, returned:0 };
+  allItems.forEach(function(i){
+    if(i.type === 'lost') counts.lost++;
+    if(i.type === 'found') counts.found++;
+    if(i.status === 'returned') counts.returned++; else counts.open++;
+  });
+  var pills = [['all','All'],['lost','Lost'],['found','Found'],['open','Open'],['returned','Returned']];
+  document.getElementById('itemPills').innerHTML = pills.map(function(p){
+    return '<button class="pill' + (itemFilter === p[0] ? ' active' : '') +
+      '" onclick="setItemFilter(\'' + p[0] + '\')">' + p[1] + ' (' + counts[p[0]] + ')</button>';
+  }).join('');
+
+  var list = allItems.filter(function(i){
+    if(itemFilter === 'lost' && i.type !== 'lost') return false;
+    if(itemFilter === 'found' && i.type !== 'found') return false;
+    if(itemFilter === 'open' && i.status === 'returned') return false;
+    if(itemFilter === 'returned' && i.status !== 'returned') return false;
+    if(!q) return true;
+    return (i.name||'').toLowerCase().indexOf(q) >= 0 ||
+           (i.category||'').toLowerCase().indexOf(q) >= 0 ||
+           (i.location||'').toLowerCase().indexOf(q) >= 0;
+  });
+
+  if(!list.length){
+    area.innerHTML = '<div class="empty">' +
+      (allItems.length ? 'No items match.' : 'No items yet.') + '</div>';
+    return;
+  }
+
+  var html = '<div class="table-scroll"><table><thead><tr>' +
+    '<th>Item</th><th>Type</th><th>Category</th><th>Location</th><th>Status</th><th>Action</th>' +
+    '</tr></thead><tbody>';
+
+  list.forEach(function(i){
+    var typeBadge = i.type === 'lost'
+      ? '<span class="badge-status blocked">Lost</span>'
+      : '<span class="badge-status active">Found</span>';
+    var statusText = i.status === 'returned'
+      ? '<span class="badge-status admin">Returned</span>'
+      : '<span style="color:var(--muted);">Open</span>';
+
+    var thumb = (i.photo_url && /^https:\/\//i.test(i.photo_url))
+      ? '<a href="' + esc(i.photo_url) + '" target="_blank" rel="noopener" title="Open photo"><img class="ithumb" src="' + esc(i.photo_url) + '" alt="" loading="lazy"></a>'
+      : '<span class="ithumb none">📦</span>';
+    html += '<tr>' +
+      '<td><div class="icell">' + thumb + '<b>' + esc(i.name) + '</b></div></td>' +
+      '<td>' + typeBadge + '</td>' +
+      '<td>' + esc(i.category) + '</td>' +
+      '<td>' + esc(i.location) + '</td>' +
+      '<td>' + statusText + '</td>' +
+      '<td><button class="action-btn delete" data-id="' + esc(i.id) +
+        '" data-name="' + esc(i.name) + '">🗑️ Delete</button></td>' +
+    '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  area.innerHTML = html;
+}
+
+document.getElementById('itemsArea').addEventListener('click', function(e){
+  var b = e.target.closest('button.delete');
+  if(b) deleteItem(b.getAttribute('data-id'), b.getAttribute('data-name'), b);
+});
+
+async function deleteItem(id, name, btn){
+  if(!confirm('🗑️ DELETE ITEM\\n\\nPermanently delete "' + name + '"?\\n\\nThis cannot be undone.')) return;
+  btn.disabled = true;
+  var res = await admin('admin_delete_item', { p_id: String(id) });
+  if(res.error){ toast('❌ Failed: ' + res.error.message); btn.disabled = false; return; }
+  toast('🗑️ Item deleted');
+  loadItems();
+}
+
+document.getElementById('adminPass').focus();
+</script>
+</body>
+</html>

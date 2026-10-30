@@ -1,0 +1,277 @@
+/* HIVE teamwork polish — light hexagonal backdrop, consistent typography, AI actions and notification centre. */
+:root{
+  --font:'DM Sans',system-ui,sans-serif;
+  --head:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+html,body,button,input,select,textarea{font-family:var(--font)!important}
+/* The team's approved WELCOME TO HIVE home heading keeps its established display style. */
+.ux-welcome h1{font-family:'Sora',system-ui,sans-serif!important;letter-spacing:-.055em!important;font-weight:800!important}
+.hh1,.h1,.hh2,.section-header h2,.ux-module b,.ux-panel-title,.newsscreen .news h2,.newsscreen .hcard>b,.sdgtile b,.ai-entry-t b{font-family:var(--head)!important}
+body{font-feature-settings:'ss01' on; text-rendering:optimizeLegibility}
+
+/* The content backdrop is intentionally geometry-free: only smooth blended theme colours remain. */
+#phone{position:relative!important;isolation:isolate!important;overflow-x:hidden}
+body.hive-authenticated #phone>.top,
+body.hive-authenticated #phone>.screen,
+body.hive-authenticated #phone>.nav-main,
+body.hive-authenticated #phone>.nav{position:relative;z-index:1}
+body.hive-authenticated #phone .screen{background:transparent!important}
+body.hive-authenticated #phone .top{background:color-mix(in srgb,var(--bg) 85%,transparent)!important;backdrop-filter:blur(17px) saturate(1.12)}
+
+/* Brand emblem cutout: original hue and artwork remain intact; dimension/lighting are presentation-only. */
+.ux-brand-mark{width:30px!important;height:30px!important;object-fit:contain!important;filter:drop-shadow(0 4px 7px rgba(29,74,115,.16));vertical-align:middle}
+.ux-loading{gap:0!important}
+.ux-loading-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 10px;position:relative}
+.ux-loading-orbit{width:min(230px,59vw)!important;max-width:230px!important;height:auto!important;aspect-ratio:1/1!important;margin:0 auto 4px!important;overflow:visible!important;border-radius:50%!important}
+.ux-loading-orbit img{width:100%!important;height:100%!important;object-fit:contain!important;border-radius:0!important;box-shadow:none!important;filter:drop-shadow(0 16px 16px rgba(26,54,87,.25)) drop-shadow(0 3px 7px rgba(231,143,184,.16))!important;animation:hiveEmblemFloat 4.4s ease-in-out infinite!important;transform-style:preserve-3d;transition:filter .35s ease,transform .35s ease!important}
+.ux-loading-orbit:hover img{transform:perspective(850px) rotateX(5deg) rotateY(-6deg) translateY(-3px) scale(1.025)!important;filter:drop-shadow(0 23px 20px rgba(26,54,87,.29))!important}
+.ux-loading-wordmark,.ux-intro-wordmark{font-family:'Sora',system-ui,sans-serif!important;font-weight:800;letter-spacing:.27em;text-indent:.27em;line-height:1;color:#1C4167}
+.ux-loading-wordmark{font-size:clamp(25px,4vw,34px);margin:4px auto 7px}
+.ux-loading-tagline,.ux-intro-tagline{font:700 9px/1.7 var(--font)!important;letter-spacing:.155em;text-transform:uppercase;text-align:center;color:#58728E}
+.ux-loading-tagline{margin:0 auto 14px}
+:root[data-theme="dark"] .ux-loading-wordmark,:root[data-theme="dark"] .ux-intro-wordmark{color:#EEF5FF}
+:root[data-theme="dark"] .ux-loading-tagline,:root[data-theme="dark"] .ux-intro-tagline{color:#B5C9DE}
+.ux-loading h1{margin-top:2px!important}
+@keyframes hiveEmblemFloat{0%,100%{transform:translate3d(0,0,0) rotateX(0deg) rotateY(0deg)}25%{transform:translate3d(0,-5px,0) rotateX(1.5deg) rotateY(-1.5deg)}52%{transform:translate3d(0,-2px,0) rotateX(0deg) rotateY(1.5deg)}78%{transform:translate3d(0,-6px,0) rotateX(-1deg) rotateY(0deg)}}
+#hive-intro .ux-intro-stage{width:min(285px,70vw)!important;aspect-ratio:1/1!important;height:auto!important;margin:0 auto 3px!important;overflow:visible!important}
+#hive-intro .ux-intro-stage:before{width:110%!important;border-color:rgba(58,151,205,.31)!important}
+#hive-intro .ux-intro-stage:after{width:128%!important;border-color:rgba(219,129,174,.33)!important}
+#hive-intro .ux-intro-mark{width:100%!important;height:100%!important;aspect-ratio:1/1!important;overflow:visible!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;transition:transform .45s cubic-bezier(.2,.8,.2,1)!important;transform-style:preserve-3d}
+#hive-intro .ux-intro-mark:hover{transform:perspective(950px) rotateX(5deg) rotateY(-7deg) translateY(-5px) scale(1.025)!important}
+#hive-intro .ux-intro-mark img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;border-radius:0!important;box-shadow:none!important;filter:drop-shadow(0 18px 18px rgba(23,50,83,.24)) drop-shadow(0 5px 11px rgba(226,132,177,.14))!important;animation:hiveEmblemFloat 4.4s ease-in-out infinite!important;transform-style:preserve-3d}
+#hive-intro .ux-intro-wordmark{font-size:clamp(28px,5vw,37px);margin:0 auto 6px;position:relative;z-index:2}
+#hive-intro .ux-intro-tagline{margin:0 auto 17px;position:relative;z-index:2}
+#hive-intro .ux-intro-card h1{font-family:var(--head)!important;font-size:clamp(18px,3.7vw,23px)!important;letter-spacing:-.04em!important;margin:0 0 7px!important}
+#hive-intro .ux-intro-card p{margin:0 0 13px!important}
+#hive-intro .ux-intro-card{padding:clamp(18px,3vw,28px)!important;gap:0!important}
+:root[data-theme="dark"] #hive-intro .ux-intro-wordmark{color:#EEF5FF!important}
+:root[data-theme="dark"] #hive-intro .ux-intro-tagline{color:#B7C9DC!important}
+
+/* Header controls: AI assistant, theme switch, notifications and profile share one tidy hit area. */
+.ux-top-tools{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important;flex-shrink:0}
+.ux-ai-launch,.ux-theme,.ux-profile-shortcut{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;position:relative;border-radius:14px!important;border:1px solid var(--line)!important;background:color-mix(in srgb,var(--card) 90%,transparent)!important;color:var(--acc2)!important;box-shadow:0 3px 10px rgba(36,86,130,.06)!important;cursor:pointer;transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease!important;padding:0!important}
+.ux-ai-launch:hover,.ux-theme:hover,.ux-profile-shortcut:hover{transform:translateY(-2px);border-color:var(--acc)!important;box-shadow:0 7px 18px rgba(61,123,174,.16)!important}
+.ux-ai-launch svg,.ux-theme svg,.ux-profile-shortcut svg{width:21px;height:21px;display:block}
+.ux-ai-launch{background:linear-gradient(135deg,color-mix(in srgb,#8BD5F8 26%,var(--card)),color-mix(in srgb,#F3BED5 24%,var(--card)))!important;color:#2F679A!important;border-color:color-mix(in srgb,var(--acc2) 28%,var(--line))!important}
+:root[data-theme="dark"] .ux-ai-launch{background:linear-gradient(135deg,#253E52,#3B2C41)!important;color:#D7EFFF!important;border-color:#52657D!important}
+.ux-ai-launch:focus-visible,.ux-theme:focus-visible,.bell:focus-visible{outline:3px solid color-mix(in srgb,var(--acc2) 65%,white)!important;outline-offset:2px}
+.top .bell{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;position:relative!important;border-radius:14px!important;cursor:pointer}
+.top .bell .dot{position:absolute!important;right:7px!important;top:6px!important;width:8px!important;height:8px!important;border:2px solid var(--card)!important;background:#E26D9A!important;border-radius:50%!important;box-shadow:0 0 0 2px color-mix(in srgb,#E26D9A 13%,transparent)!important}
+.ux-profile-shortcut{color:var(--muted)!important}
+@media(max-width:470px){.ux-top-tools{gap:5px!important}.ux-ai-launch,.ux-theme,.ux-profile-shortcut,.top .bell{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;border-radius:12px!important}.ux-ai-launch svg,.ux-theme svg,.ux-profile-shortcut svg{width:19px;height:19px}}
+
+/* The notification hub summarises announcements, service status, bookings, payments and community activity. */
+.hive-notifications{padding-top:18px!important}
+.hive-notifications-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:0 0 17px}
+.hive-notifications-head h1{font:800 clamp(25px,3vw,34px)/1.15 var(--head)!important;letter-spacing:-.045em;margin:0 0 6px!important;color:var(--text)!important}
+.hive-notifications-head p{font:500 13px/1.6 var(--font)!important;color:var(--muted)!important;margin:0;max-width:560px}
+.hive-mark-read{border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--acc2);font:700 11px var(--font);padding:10px 12px;white-space:nowrap;cursor:pointer;transition:transform .2s,border-color .2s}
+.hive-mark-read:hover{transform:translateY(-1px);border-color:var(--acc2)}
+.hive-notif-filters{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:0 0 13px;margin-bottom:4px}
+.hive-notif-filters::-webkit-scrollbar{display:none}
+.hive-notif-filter{flex-shrink:0;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 84%,transparent);color:var(--muted);border-radius:999px;padding:9px 14px;font:700 11px var(--font);cursor:pointer;transition:all .2s ease}
+.hive-notif-filter.active{background:linear-gradient(115deg,#A5DFFF,#F4C9DE);color:#294E72;border-color:#A6CBE4;box-shadow:0 5px 13px rgba(75,132,177,.12)}
+:root[data-theme="dark"] .hive-notif-filter.active{background:linear-gradient(115deg,#294760,#4B3043);color:#F0F6FF;border-color:#506882}
+.hive-feed-list{display:grid;gap:10px}
+.hive-feed-item{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:13px;align-items:start;padding:16px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--card) 91%,transparent);box-shadow:0 5px 18px rgba(47,95,143,.045);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.hive-feed-item:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--acc2) 32%,var(--line));box-shadow:0 9px 22px rgba(47,95,143,.08)}
+.hive-feed-item.unread{border-left:3px solid #6DBCE9;background:linear-gradient(105deg,color-mix(in srgb,#CBEAFF 18%,var(--card)),color-mix(in srgb,#F4D4E3 13%,var(--card)))}
+:root[data-theme="dark"] .hive-feed-item.unread{background:linear-gradient(105deg,rgba(68,132,175,.14),rgba(185,102,147,.09));border-left-color:#8DCEF3}
+.hive-feed-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#D6EEFF,#F9E0EC);color:#376F9D;border:1px solid #C5DFF0}
+:root[data-theme="dark"] .hive-feed-icon{background:linear-gradient(135deg,#263F54,#443044);border-color:#485B70;color:#D4EAFE}
+.hive-feed-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.hive-feed-copy{min-width:0}
+.hive-feed-kicker{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:0 0 5px;font:800 9px/1.4 var(--font);letter-spacing:.105em;text-transform:uppercase;color:var(--acc2)}
+.hive-feed-copy h3{font:750 14px/1.4 var(--head);letter-spacing:-.02em;margin:0 0 4px;color:var(--text);overflow-wrap:anywhere}
+.hive-feed-copy p{font:500 12px/1.65 var(--font);color:var(--muted);margin:0;overflow-wrap:anywhere;white-space:normal}
+.hive-feed-time{font:600 10px/1.5 var(--font);color:var(--muted);white-space:nowrap;text-align:right;padding-top:2px}
+.hive-feed-status{display:inline-flex;align-items:center;border-radius:999px;padding:4px 7px;background:var(--acc-soft);border:1px solid var(--line);color:var(--acc2);font:800 9px var(--font);letter-spacing:.02em;text-transform:capitalize}
+.hive-feed-empty{border:1px dashed var(--line);border-radius:20px;padding:32px 20px;text-align:center;background:color-mix(in srgb,var(--card) 60%,transparent)}
+.hive-feed-empty svg{width:32px;height:32px;color:var(--acc2);margin-bottom:10px}
+.hive-feed-empty b{display:block;font:750 15px var(--head);color:var(--text);margin-bottom:5px}
+.hive-feed-empty p{font:500 12px/1.6 var(--font);color:var(--muted);margin:0}
+.hive-notif-loading{display:flex;align-items:center;gap:9px;padding:22px;color:var(--muted);font:600 12px var(--font)}
+.hive-notif-loading:before{content:"";width:15px;height:15px;border:2px solid var(--line);border-top-color:var(--acc2);border-radius:50%;animation:hiveNotifSpin .8s linear infinite}
+@keyframes hiveNotifSpin{to{transform:rotate(360deg)}}
+@media(max-width:580px){.hive-notifications-head{flex-direction:column;align-items:stretch}.hive-mark-read{align-self:flex-start}.hive-feed-item{grid-template-columns:38px minmax(0,1fr);gap:11px;padding:13px}.hive-feed-icon{width:38px;height:38px;border-radius:12px}.hive-feed-time{grid-column:2;text-align:left;padding-top:0}.hive-feed-copy h3{font-size:13px}}
+
+/* Professional topic-specific hierarchy and clear visibility controls. */
+.newsscreen .ticker{background:linear-gradient(105deg,#E2F2FF,#FCE7F0)!important;color:#456B90!important;border-bottom:1px solid #C9DFF0!important}
+:root[data-theme="dark"] .newsscreen .ticker{background:linear-gradient(105deg,#24394C,#3B2938)!important;color:#D5E8FA!important;border-bottom-color:#3E5268!important}
+.newsscreen .news.urgent,.newsscreen .news.important{background:linear-gradient(115deg,color-mix(in srgb,#CFEAFF 24%,var(--card)),color-mix(in srgb,#F6D6E4 17%,var(--card)))!important;border-color:var(--line)!important;color:var(--text)!important}
+.newsscreen .news .nl{color:var(--acc2)!important}
+.password-eye{color:#315F86!important;background:#D7ECFB!important;border:1px solid #A8CFE8!important;border-radius:10px!important;box-shadow:0 2px 5px rgba(35,91,135,.12)!important;width:36px!important;height:36px!important;right:6px!important}
+.password-eye:hover{background:#C4E4F8!important;color:#163F62!important}
+:root[data-theme="dark"] .password-eye{color:#D9ECFF!important;background:#2B3D52!important;border-color:#56718B!important;box-shadow:0 2px 7px rgba(0,0,0,.24)!important}
+:root[data-theme="dark"] .password-eye:hover{background:#36506B!important;color:#FFFFFF!important}
+.password-eye svg{width:20px!important;height:20px!important;stroke:currentColor!important}
+
+/* The urgent-news popup is deliberately disabled: updates live in the bell/notification centre. */
+#newsOv{display:none!important;visibility:hidden!important;pointer-events:none!important}
+.ux-disclaimer{margin:22px 0 8px!important;padding:15px 17px!important;border:1px solid var(--line)!important;border-radius:15px!important;background:color-mix(in srgb,var(--card) 72%,transparent)!important;color:var(--muted)!important;font:500 11px/1.65 var(--font)!important}
+.ux-disclaimer b{color:var(--text);font-weight:800}
+@media(prefers-reduced-motion:reduce){.ux-loading-orbit img,#hive-intro .ux-intro-mark img{animation:hiveEmblemFloat 7s ease-in-out infinite!important}.ux-ai-launch,.ux-theme,.bell,.hive-feed-item{transition:none!important}}
+
+/* HIVE AI is a first-class, clearly labelled category in the Explore toggle rail. */
+.hive-ai-toggle{display:inline-flex!important;align-items:center;justify-content:center;gap:7px!important;background:linear-gradient(120deg,#DDF1FF,#FCE6F0)!important;color:#2E6798!important;border-color:#B5D8EE!important;white-space:nowrap}
+.hive-ai-toggle svg{width:17px!important;height:17px!important;flex-shrink:0}
+:root[data-theme="dark"] .hive-ai-toggle{background:linear-gradient(120deg,#263F54,#453042)!important;color:#DCEFFF!important;border-color:#53677D!important}
+
+
+/* HIVE Groups: distinct, app-like controls for public and private conversations. */
+.chat-mode-tabs{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:5px;margin:4px 0 15px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--card) 78%,transparent)}
+.chat-mode-tabs::-webkit-scrollbar{display:none}
+.chat-mode-tab{flex:1;min-width:max-content;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--muted);padding:11px 14px;font:750 12px var(--font);cursor:pointer;transition:background .2s ease,transform .2s ease,color .2s ease}
+.chat-mode-tab:hover{transform:translateY(-1px);color:var(--text)}
+.chat-mode-tab.active{background:linear-gradient(120deg,#DDF1FF,#FCE6F0);border-color:#BDDDF0;color:#2A5F8B;box-shadow:0 4px 13px rgba(67,128,174,.1)}
+:root[data-theme="dark"] .chat-mode-tab.active{background:linear-gradient(120deg,#283F53,#442E40);border-color:#50657A;color:#EAF5FF}
+.group-chat-screen{display:flex;flex-direction:column;gap:3px}
+.group-list-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin:7px 0 14px}
+.group-list-head h2,.group-open-title h2{font:800 clamp(21px,3vw,27px)/1.2 var(--head);letter-spacing:-.04em;color:var(--text);margin:0 0 5px}
+.group-list-head p,.group-open-title p{font:500 12px/1.65 var(--font);color:var(--muted);margin:0;max-width:600px}
+.group-list-head .btn{flex-shrink:0;white-space:nowrap}
+.group-card{min-width:0;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:20px;padding:17px;margin:0 0 11px;background:linear-gradient(140deg,color-mix(in srgb,#DDF1FF 36%,var(--card)),color-mix(in srgb,#FCE6F0 25%,var(--card)) 75%);box-shadow:0 6px 20px rgba(47,95,143,.045);transition:transform .2s,border-color .2s,box-shadow .2s}
+.group-card:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--acc) 38%,var(--line));box-shadow:0 11px 24px rgba(47,95,143,.09)}
+:root[data-theme="dark"] .group-card{background:linear-gradient(140deg,#22384A,#332A3B 78%)}
+.group-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.group-icon{width:37px;height:37px;display:grid;place-items:center;border:1px solid color-mix(in srgb,#6DA7D0 35%,var(--line));border-radius:13px;color:var(--acc2);background:color-mix(in srgb,var(--card) 65%,transparent);font-size:19px}
+.group-visibility{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:5px 9px;font:800 9px var(--font);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:color-mix(in srgb,var(--card) 78%,transparent)}
+.group-visibility.public{color:#2E729B;border-color:#B9DDEE;background:#E4F5FF}
+.group-visibility.private{color:#9E597D;border-color:#EAC5D7;background:#FCEAF2}
+:root[data-theme="dark"] .group-visibility.public{color:#C5E9FF;background:#233F54;border-color:#4A6A80}
+:root[data-theme="dark"] .group-visibility.private{color:#FFD6E8;background:#452F3F;border-color:#79546A}
+.group-card h3{font:800 16px/1.35 var(--head);letter-spacing:-.02em;color:var(--text);margin:0 0 5px;overflow-wrap:anywhere}
+.group-card>p{font:500 12px/1.65 var(--font);color:var(--muted);margin:0 0 12px;overflow-wrap:anywhere;white-space:pre-wrap}
+.group-card-meta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;color:var(--muted);font:600 10px var(--font);padding-top:10px;border-top:1px solid color-mix(in srgb,var(--line) 75%,transparent)}
+.group-card-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.group-private-note{font:600 11px var(--font);color:var(--muted)}
+.group-empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px 20px;margin:10px 0 16px;border:1px dashed color-mix(in srgb,var(--acc2) 24%,var(--line));border-radius:20px;background:color-mix(in srgb,var(--card) 68%,transparent)}
+.group-empty-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:16px;margin-bottom:12px;background:linear-gradient(135deg,#DDF1FF,#FCE6F0);color:#3A719B;font-size:22px}
+:root[data-theme="dark"] .group-empty-icon{background:linear-gradient(135deg,#263F54,#443042);color:#DDEEFF}
+.group-empty-state b{font:800 15px var(--head);color:var(--text);margin-bottom:5px}
+.group-empty-state p{max-width:420px;margin:0;color:var(--muted);font:500 12px/1.7 var(--font)}
+.group-spinner{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--acc2);animation:hiveNotifSpin .85s linear infinite;margin-bottom:12px}
+.group-open-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:start;gap:13px;margin:7px 0 12px}
+.group-open-title{min-width:0}.group-open-title .group-visibility{margin-bottom:8px}
+.group-message-list{max-height:min(52vh,560px);overflow:auto;overscroll-behavior:contain;padding:13px!important;scroll-behavior:smooth}
+.group-chat-screen .chatbar{position:sticky;bottom:74px;z-index:2;padding:10px;border-radius:17px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(14px);box-shadow:0 8px 22px rgba(40,73,110,.08)}
+.group-chat-screen .chatbar .input{min-width:0}
+.group-create-modal{width:min(560px,100%);max-height:min(86vh,800px);overflow:auto;padding:clamp(20px,4vw,30px);border:1px solid var(--line);border-radius:24px;background:var(--card);box-shadow:0 28px 80px rgba(26,48,79,.24);color:var(--text);animation:hiveGroupModalIn .26s cubic-bezier(.2,.8,.2,1) both}
+@keyframes hiveGroupModalIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+.group-modal-backdrop{position:fixed;z-index:1000;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(16,32,52,.42);backdrop-filter:blur(9px)}
+.group-modal-kicker{font:800 9px var(--font);letter-spacing:.15em;color:var(--acc2);margin-bottom:10px}
+.group-create-modal h2{font:800 clamp(22px,4vw,28px)/1.2 var(--head);letter-spacing:-.04em;margin:0 0 7px}
+.group-create-modal>p{font:500 12px/1.6 var(--font);color:var(--muted);margin:0 0 18px}
+.group-create-modal>label,.group-invite>label{display:block;font:750 11px var(--font);color:var(--text);margin:13px 0 6px}
+.group-create-modal .input,.group-invite .input{width:100%;box-sizing:border-box;min-width:0;margin:0 0 4px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);padding:12px;font:500 12px/1.5 var(--font)}
+.group-create-modal .input:focus,.group-invite .input:focus{outline:3px solid color-mix(in srgb,var(--acc2) 24%,transparent);border-color:var(--acc2)}
+.group-visibility-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}
+.group-visibility-option{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:9px;border:1px solid var(--line);border-radius:15px;padding:13px;background:color-mix(in srgb,var(--card) 85%,var(--bg));cursor:pointer}
+.group-visibility-option:has(input:checked){border-color:#8CC7E9;background:linear-gradient(135deg,color-mix(in srgb,#DDF1FF 70%,var(--card)),color-mix(in srgb,#FCE6F0 55%,var(--card)))}
+:root[data-theme="dark"] .group-visibility-option:has(input:checked){border-color:#547B99;background:linear-gradient(135deg,#243F52,#422D3C)}
+.group-visibility-option input{accent-color:#4289BA;margin-top:4px}
+.group-visibility-option b,.group-visibility-option small{display:block}.group-visibility-option b{font:800 11px var(--font);color:var(--text);margin-bottom:4px}.group-visibility-option small{font:500 10px/1.55 var(--font);color:var(--muted)}
+.group-visibility-swatch{display:grid;place-items:center;width:28px;height:28px;border-radius:10px;background:linear-gradient(135deg,#DDF1FF,#FCE6F0);color:#346F9A;font-size:15px}
+.group-modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:16px}
+.group-modal-note{font:500 10px/1.5 var(--font);color:var(--muted);margin-top:13px;padding-top:11px;border-top:1px solid var(--line)}
+.group-members-panel{border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:13px;background:color-mix(in srgb,var(--card) 86%,transparent)}
+.group-panel-title{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}.group-panel-title b{font:800 14px var(--head);color:var(--text)}.group-panel-title p{font:500 10px/1.5 var(--font);color:var(--muted);margin:4px 0 0}
+.group-member-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.group-member-avatar{width:33px;height:33px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#DDF1FF,#FCE6F0);color:#345F81;font:800 12px var(--font);flex-shrink:0}
+.group-member-row>div{flex:1;min-width:0}.group-member-row b{font:700 11px var(--font);color:var(--text);display:block}.group-member-row small{display:block;color:var(--muted);font:500 10px var(--font);overflow-wrap:anywhere}.group-member-role{color:var(--muted);font:800 9px var(--font);text-transform:uppercase}
+.group-invite{margin-top:13px;padding-top:12px;border-top:1px solid var(--line)}.group-invite-row{display:flex;gap:7px}.group-invite-row .input{flex:1}.group-invite>small{display:block;font:500 10px/1.5 var(--font);color:var(--muted);margin-top:5px}
+.group-empty-small{font:500 11px var(--font);color:var(--muted)}
+.expiry-label{display:inline-flex!important;margin:7px 0!important;padding:5px 8px;border:1px solid var(--line);border-radius:9px;background:color-mix(in srgb,#DDF1FF 35%,var(--card));color:var(--acc2)!important;font:700 10px var(--font)!important}
+:root[data-theme="dark"] .expiry-label{background:color-mix(in srgb,#253F52 55%,var(--card))}
+.field-hint,.clubs-admin-overview{border-color:color-mix(in srgb,var(--acc2) 22%,var(--line))!important;background:linear-gradient(125deg,color-mix(in srgb,#DDF1FF 34%,var(--card)),color-mix(in srgb,#FCE6F0 26%,var(--card)))!important}
+:root[data-theme="dark"] .field-hint,:root[data-theme="dark"] .clubs-admin-overview{background:linear-gradient(125deg,#253D50,#392C3B)!important}
+.ux-home-hex{filter:drop-shadow(0 3px 7px rgba(218,164,28,.25));vertical-align:middle}
+.hive-ai-toggle{padding-inline:14px!important}
+.hive-ai-toggle span{font-weight:800;letter-spacing:.01em}
+@media(max-width:540px){.group-list-head{flex-direction:column;align-items:stretch}.group-list-head .btn{align-self:flex-start}.group-open-head{grid-template-columns:auto minmax(0,1fr)}.group-open-head>.hbtn{grid-column:1/-1;justify-self:start}.group-visibility-options{grid-template-columns:1fr}.group-chat-screen .chatbar{bottom:66px}.group-invite-row{flex-direction:column}.group-invite-row .btn{align-self:flex-start}}
+
+
+/* Team-requested UI polish: clear AI symbol, stable Explore labels, and calm news ticker. */
+.ux-top-tools .ux-ai-launch{order:0!important}
+.ux-top-tools .ux-theme:not(.ux-profile-shortcut){order:1!important}
+.ux-top-tools .bell{order:2!important}
+.ux-top-tools .ux-profile-shortcut{order:3!important}
+.ux-ai-launch .hive-ai-header-svg{display:block!important;width:23px!important;height:23px!important;min-width:23px!important;min-height:23px!important;opacity:1!important;visibility:visible!important;stroke:currentColor!important;color:inherit!important;overflow:visible!important}
+.ux-ai-launch:before{content:"";position:absolute;inset:4px;border-radius:11px;background:linear-gradient(135deg,rgba(139,213,248,.14),rgba(243,190,213,.13));pointer-events:none}
+.hpills.secbar{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:7px!important;max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;padding:8px 2px 11px!important;margin:10px 0 8px!important;scrollbar-width:none!important;overscroll-behavior-x:contain}
+.hpills.secbar::-webkit-scrollbar{display:none!important}
+.hpills.secbar .hpill{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;gap:7px!important;white-space:nowrap!important;min-width:max-content!important;line-height:1.2!important;visibility:visible!important;opacity:1!important;padding:9px 13px!important}
+.hpills.secbar .hive-tab-icon{display:inline-grid!important;place-items:center!important;flex:0 0 17px!important;width:17px!important;height:17px!important;line-height:0!important;visibility:visible!important;opacity:1!important}
+.hpills.secbar .hive-tab-icon svg{display:block!important;width:17px!important;height:17px!important;stroke:currentColor!important;flex-shrink:0!important}
+.hpills.secbar .hive-tab-label{display:inline-block!important;visibility:visible!important;opacity:1!important;max-width:none!important;overflow:visible!important;white-space:nowrap!important;color:inherit!important;font-size:12px!important;font-weight:750!important;line-height:1.2!important;position:static!important}
+.hpills.secbar .hive-ai-toggle{background:linear-gradient(120deg,#DDF1FF,#FCE6F0)!important;color:#2E6798!important;border-color:#B5D8EE!important;box-shadow:0 3px 10px rgba(68,128,177,.1)!important}
+.hpills.secbar .hive-ai-toggle .hive-ai-label{letter-spacing:.01em!important;font-weight:850!important}
+.hpills.secbar .hive-explore-tab.on{background:linear-gradient(120deg,#CBEAFF,#F7DCE9)!important;color:#244F75!important;border-color:#A9D2EB!important;font-weight:800!important}
+:root[data-theme="dark"] .hpills.secbar .hive-ai-toggle{background:linear-gradient(120deg,#263F54,#453042)!important;color:#DCEFFF!important;border-color:#53677D!important}
+:root[data-theme="dark"] .hpills.secbar .hive-explore-tab.on{background:linear-gradient(120deg,#263F54,#453042)!important;color:#E5F3FF!important;border-color:#53677D!important}
+.newsscreen .ticker{position:relative;max-width:100%;overflow:hidden;border:1px solid #C9DFF0!important;border-radius:12px!important;margin:2px 0 12px!important;padding:8px 0!important;background:linear-gradient(105deg,#DCEFFF,#F8E4ED)!important;color:#456B90!important;box-shadow:0 3px 11px rgba(64,122,172,.07)!important}
+:root[data-theme="dark"] .newsscreen .ticker{background:linear-gradient(105deg,#24394C,#3B2938)!important;color:#D5E8FA!important;border-color:#3E5268!important}
+.ux-module.ai-feature{background:linear-gradient(135deg,color-mix(in srgb,#CBEAFF 58%,var(--card)),color-mix(in srgb,#F7DCE9 45%,var(--card)))!important;border-color:color-mix(in srgb,#79BEE7 35%,var(--line))!important}
+:root[data-theme="dark"] .ux-module.ai-feature{background:linear-gradient(135deg,#263F54,#3C2E40)!important;border-color:#53677D!important}
+.expiry-label{display:inline-flex;align-items:center;gap:5px;margin:7px 0 5px!important;padding:5px 8px!important;border:1px solid color-mix(in srgb,var(--acc) 25%,var(--line));border-radius:8px;background:color-mix(in srgb,var(--acc-soft) 65%,transparent);font-size:10px!important;font-weight:700!important;color:var(--muted)!important}
+
+
+/* Background-only integration: blended hex-cell texture for the bright and dark themes.
+   Foreground layout, cards, navigation, logo and feature styling are unchanged. */
+:root[data-theme="light"] body,
+:root[data-theme="light"] .phone{
+  background-color:#E9F3FF!important;
+  background-image:
+    linear-gradient(118deg,rgba(223,243,255,.15) 0%,rgba(240,234,255,.12) 48%,rgba(255,228,241,.16) 100%),
+    url("./hive-bg-light.svg"),
+    radial-gradient(ellipse at 8% 4%,rgba(100,190,247,.30),transparent 37%),
+    radial-gradient(ellipse at 92% 12%,rgba(244,153,193,.24),transparent 36%),
+    radial-gradient(ellipse at 76% 84%,rgba(184,211,255,.18),transparent 40%),
+    linear-gradient(125deg,#D6ECFF 0%,#E6EDFF 37%,#F9E5F0 67%,#DFF2FF 100%)!important;
+  background-size:100% 100%,650px 375.3px,100% 100%,100% 100%,100% 100%,100% 100%!important;
+  background-repeat:no-repeat,repeat,no-repeat,no-repeat,no-repeat,no-repeat!important;
+  background-position:center center!important;
+  background-attachment:scroll!important;
+}
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .phone{
+  background-color:#111722!important;
+  background-image:
+    linear-gradient(125deg,rgba(8,12,20,.16) 0%,rgba(14,18,30,.11) 52%,rgba(31,20,35,.16) 100%),
+    url("./hive-bg-dark.svg"),
+    radial-gradient(ellipse at 7% 2%,rgba(69,151,203,.17),transparent 36%),
+    radial-gradient(ellipse at 94% 14%,rgba(192,99,143,.13),transparent 36%),
+    linear-gradient(125deg,#111A28 0%,#151F30 48%,#241D2A 100%)!important;
+  background-size:100% 100%,650px 375.3px,100% 100%,100% 100%,100% 100%!important;
+  background-repeat:no-repeat,repeat,no-repeat,no-repeat,no-repeat!important;
+  background-position:center center!important;
+  background-attachment:scroll!important;
+}
+
+/* Chat layout stability: keep the composer at the bottom of the chat viewport and avoid layout movement. */
+.group-chat-screen{min-height:0;}
+.group-chat-screen>.chat-mode-tabs,
+.group-chat-screen>.group-list-head,
+.group-chat-screen>.group-card,
+.group-chat-screen>.group-empty-state,
+.group-chat-screen>.group-open-head,
+.group-chat-screen>.group-message-list,
+.group-chat-screen>.chatbar{animation:none!important;}
+.group-chat-screen>.group-card,
+.group-chat-screen>.group-list-head,
+.group-chat-screen>.group-empty-state,
+.group-chat-screen>.group-open-head,
+.group-chat-screen>.chat-mode-tabs{flex-shrink:0;}
+.group-chat-screen .group-message-list{flex:1 1 0%;min-height:160px;max-height:none!important;scroll-behavior:auto!important;}
+.group-chat-screen .chatbar{position:relative!important;bottom:auto!important;z-index:2;flex:0 0 auto;margin:8px 0 0;padding:8px 10px;border-radius:15px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 96%,transparent);backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 3px 10px rgba(40,73,110,.05);transform:none!important;transition:none!important;}
+.group-chat-screen .chatbar .input{min-width:0;height:42px;min-height:42px;padding:9px 12px!important;line-height:1.35;}
+.group-chat-screen .chatbar .btn{min-height:42px;padding:0 16px;}
+.group-chat-screen .chat-mode-tab{transition:background-color .16s ease,color .16s ease,border-color .16s ease!important;}
+.group-chat-screen .chat-mode-tab:hover,
+.group-chat-screen .chat-mode-tab:active,
+.group-chat-screen .group-card:hover,
+.group-chat-screen .group-card .btn:active,
+.group-chat-screen .chatbar .btn:active{transform:none!important;}
+.group-card{transition:border-color .16s ease,box-shadow .16s ease!important;}
+.group-card:hover{transform:none!important;box-shadow:0 8px 18px rgba(47,95,143,.07)!important;}
+@media(max-width:540px){.group-chat-screen .chatbar{bottom:auto!important;margin-top:6px;padding:7px 8px}.group-chat-screen .group-message-list{min-height:140px}.group-chat-screen .chatbar .input{height:40px;min-height:40px}.group-chat-screen .chatbar .btn{min-height:40px}}
